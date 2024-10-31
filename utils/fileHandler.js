@@ -9,3 +9,16 @@ exports.writeTasksToFile = (data)=>{
     return data;
 }
 
+exports.readTaskfromfile =()=>{
+
+    if(!fs.existsSync('./../data/task.json')){
+
+        this.writeTasksToFile([]);
+    }
+
+    const data = fs.readFileSync('./../data/task.json');
+
+    return JSON.parse(data);
+
+
+}
