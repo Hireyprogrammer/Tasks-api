@@ -1,30 +1,21 @@
-const { json } = require("stream/consumers");
+const { getTasks, createTask } = require("../controllers/taskControllers");
 
-const taskRoute = (req ,res)=>{
 
-    if(req.method == 'GET'){
-
-        res.end("Get ALl Task");
+const taskRoutes = (req, res) => {
+    if(req.method === 'GET') {
+        getTasks(req, res);
+    } else if(req.method === 'POST') {
+        createTask(req, res)
+    } else if (req.method === 'PATCH') {
+        updateTask(req, res)
+    } else if(req.method === 'DELETE') {
+        deleteTask(req, res)
+    } else {
+        res.writeHead(404, 'Data Not Found', { 'content-type': 'application/json'})
+        res.end(JSON.stringify({
+            message: "Unknown Method required."
+        }))
     }
-    else if(req.method=='POST'){
-
-        res.end('Create New Task')
-    }
-    else if(req.method == 'PATH'){
-
-        res.end("Update The task");
-    }
-    else if(req.method == 'Delete'){
-
-      res.end("Task is Deleted")
-    }
-    else{
-
-        res.writeHead(404 , 'Not Found ' , {'content-type' : 'Application/json'})
-    }
-    // res.end(json.Strim)
-
-
-
-
 }
+
+module.exports = taskRoutes;
